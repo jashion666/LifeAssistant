@@ -19,7 +19,7 @@ public class LoginController {
     private static final Logger LOG = Logger.getLogger(LoginController.class);
 
     @Reference
-    private IUserService userService;
+    IUserService userService;
 
     @RequestMapping("/login")
     @ResponseBody

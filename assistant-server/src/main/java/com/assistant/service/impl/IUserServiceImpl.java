@@ -2,7 +2,6 @@ package com.assistant.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.assistant.service.IUserService;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +11,7 @@ import java.util.Map;
  */
 @Service
 @org.springframework.stereotype.Service
-public class IUserSerivceImpl implements IUserService {
+public class IUserServiceImpl implements IUserService {
 
     @Override
     public String getUserInfo(int userId) {
