@@ -9,6 +9,6 @@
 		
 		assistant-service ##接口
 		assistant-parent ##父pom
-    		assistant-server ## 接口实现 dubbo-provider
+		assistant-server ## 接口实现 dubbo-provider
 		assistant-admin  ## 基础数据 dubbo-consumer
 		assistant-api ##api接口
