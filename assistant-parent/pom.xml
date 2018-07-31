@@ -27,16 +27,17 @@
         <!-- mybatis版本号 -->
         <mybatis.version>3.2.8</mybatis.version>
         <!-- mysql驱动版本号 -->
-        <mysql-driver.version>5.1.29</mysql-driver.version>
+        <mysql-driver.version>8.0.11</mysql-driver.version>
         <!-- log4j日志包版本号 -->
         <slf4j.version>1.7.18</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
+        <druid.version>1.1.10</druid.version>
 
     </properties>
 
     <dependencies>
 
-        <!-- 将service以jar形式导入 -->
+        <!-- 将service接口以jar形式导入 -->
         <dependency>
             <groupId>com.assistant</groupId>
             <artifactId>assistant-service</artifactId>
@@ -137,12 +138,21 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-driver.version}</version>
+            <scope>runtime</scope>
         </dependency>
-        <!-- 添加数据库连接池依赖 -->
+
+        <!--DruidDataSource 数据库连接池 -->
         <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>1.2.2</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+
+        <!--分页插件-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.0.0</version>
         </dependency>
 
         <!-- 添加fastjson -->
@@ -267,7 +277,6 @@
             <artifactId>curator-recipes</artifactId>
             <version>2.8.0</version>
         </dependency>
-
 
         <!-- dubbo -->
         <dependency>

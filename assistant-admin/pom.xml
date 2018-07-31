@@ -21,8 +21,33 @@
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
 
+    <profiles>
+        <!--开发环境-->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <db.driver>com.mysql.jdbc.Driver</db.driver>
+                <db.connectionURL>jdbc:mysql://localhost:3306/assistant</db.connectionURL>
+                <db.username>root</db.username>
+                <db.password>admin</db.password>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <finalName>assistant-admin</finalName>
+        <filters>
+            <filter>src/main/resources/properties/admin.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+                <filtering>true</filtering> <!-- 是否使用过滤器 -->
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

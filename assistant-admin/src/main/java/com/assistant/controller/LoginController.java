@@ -1,8 +1,11 @@
 package com.assistant.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.assistant.entity.TestEntity;
 import com.assistant.service.IUserService;
+import com.assistant.service.TestService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,11 +24,14 @@ public class LoginController {
     @Reference
     IUserService userService;
 
+    @Autowired
+    TestService testService;
+
     @RequestMapping("/login")
     @ResponseBody
     public String login(HttpServletRequest request) {
-        System.out.println("Hello World!");
-        LOG.info("Hello World!");
+        TestEntity info = testService.getTestInfo();
+        LOG.info(info.getUserName());
         return userService.getUserInfo(1);
     }
 }
