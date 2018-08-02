@@ -1,16 +1,16 @@
 package com.assistant.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.assistant.entity.TestEntity;
-import com.assistant.service.IUserService;
+import com.assistant.entity.TestAdminEntity;
+import com.assistant.entity.test.TestServiceEntity;
 import com.assistant.service.TestService;
+import com.assistant.service.test.read.TestReadService;
+import com.assistant.service.test.write.TestWriteService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author ：会写代码的厨师.
@@ -21,17 +21,30 @@ public class LoginController {
 
     private static final Logger LOG = Logger.getLogger(LoginController.class);
 
-    @Reference
-    IUserService userService;
+    @Reference(check = false)
+    TestReadService testReadService;
+
+    @Reference(check = false)
+    TestWriteService testWriteService;
 
     @Autowired
     TestService testService;
 
     @RequestMapping("/login")
     @ResponseBody
-    public String login(HttpServletRequest request) {
-        TestEntity info = testService.getTestInfo();
-        LOG.info(info.getUserName());
-        return userService.getUserInfo(1);
+    public String login() {
+        TestAdminEntity info = testService.getTestInfo();
+        TestServiceEntity serviceUserInfo = testReadService.findUserInfo();
+        LOG.info(serviceUserInfo.getUserName());
+        return "admin的结果：" + info.toString() + "   service 的结果：" + serviceUserInfo.toString();
     }
+
+    @RequestMapping("/save")
+    @ResponseBody
+    public String save() {
+        testWriteService.saveUserInfo(new TestServiceEntity());
+        return "";
+    }
+
+
 }

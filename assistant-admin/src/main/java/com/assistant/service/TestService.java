@@ -1,6 +1,6 @@
 package com.assistant.service;
 
-import com.assistant.entity.TestEntity;
+import com.assistant.entity.TestAdminEntity;
 
 /**
  * @author ：会写代码的厨师.
@@ -10,7 +10,7 @@ public interface TestService {
 
     /**
      * test
-     * @return TestEntity
+     * @return TestAdminEntity
      */
-    TestEntity getTestInfo();
+    TestAdminEntity getTestInfo();
 }

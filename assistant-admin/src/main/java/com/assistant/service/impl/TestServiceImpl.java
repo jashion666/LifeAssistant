@@ -1,7 +1,7 @@
 package com.assistant.service.impl;
 
 import com.assistant.dao.TestMapper;
-import com.assistant.entity.TestEntity;
+import com.assistant.entity.TestAdminEntity;
 import com.assistant.service.TestService;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class TestServiceImpl implements TestService {
     private TestMapper testMapper;
 
     @Override
-    public TestEntity getTestInfo() {
+    public TestAdminEntity getTestInfo() {
         return testMapper.getTestInfo();
     }
 }

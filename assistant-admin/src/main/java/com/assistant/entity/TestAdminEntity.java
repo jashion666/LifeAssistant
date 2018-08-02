@@ -4,7 +4,7 @@ package com.assistant.entity;
  * @author ：会写代码的厨师.
  * @date ：2018/7/31.
  */
-public class TestEntity {
+public class TestAdminEntity {
 
     private int userId;
 
