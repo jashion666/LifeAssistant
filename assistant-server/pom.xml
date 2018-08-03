@@ -30,6 +30,19 @@
                 <db.connectionURL>jdbc:mysql://192.168.1.212:3306/assistant</db.connectionURL>
                 <db.username>root</db.username>
                 <db.password>admin</db.password>
+                <dubbo.zookeeper>192.168.1.212:2181</dubbo.zookeeper>
+            </properties>
+        </profile>
+
+        <!--开发环境-->
+        <profile>
+            <id>home</id>
+            <properties>
+                <db.driver>com.mysql.jdbc.Driver</db.driver>
+                <db.connectionURL>jdbc:mysql://192.168.168.100:3307/assistant</db.connectionURL>
+                <db.username>root</db.username>
+                <db.password>weiyi21</db.password>
+                <dubbo.zookeeper>192.168.168.100:2181</dubbo.zookeeper>
             </properties>
         </profile>
     </profiles>

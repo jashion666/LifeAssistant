@@ -11,7 +11,6 @@ import redis.clients.jedis.JedisPool;
  *
  * @author 会写代码的厨师.
  */
-@Component("JedisClientSingle")
 public class JedisClientSingle implements JedisClient {
 
     @Autowired

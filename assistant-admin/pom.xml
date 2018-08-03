@@ -30,10 +30,27 @@
                 <db.connectionURL>jdbc:mysql://192.168.1.212:3306/assistant</db.connectionURL>
                 <db.username>root</db.username>
                 <db.password>admin</db.password>
-                <cache.host>192.168.1.95</cache.host>
+                <dubbo.zookeeper>192.168.1.212:2181</dubbo.zookeeper>
+                <cache.host>127.0.0.1</cache.host>
                 <cache.password>98438826BD65FA69</cache.password>
                 <cache.port>6379</cache.port>
-                <cache.timeout>0</cache.timeout>
+                <cache.timeout>30000</cache.timeout>
+            </properties>
+        </profile>
+
+        <!--开发环境-->
+        <profile>
+            <id>home</id>
+            <properties>
+                <db.driver>com.mysql.jdbc.Driver</db.driver>
+                <db.connectionURL>jdbc:mysql://192.168.168.100:3307/assistant</db.connectionURL>
+                <db.username>root</db.username>
+                <db.password>weiyi21</db.password>
+                <dubbo.zookeeper>192.168.168.100:2181</dubbo.zookeeper>
+                <cache.host>127.0.0.1</cache.host>
+                <cache.password>98438826BD65FA69</cache.password>
+                <cache.port>6379</cache.port>
+                <cache.timeout>30000</cache.timeout>
             </properties>
         </profile>
     </profiles>

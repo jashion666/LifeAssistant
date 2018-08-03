@@ -14,7 +14,8 @@
 
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <property name="maxTotal" value="2048"/>
-        <property name="maxIdle" value="200"/>
+        <property name="maxIdle" value="300"/>
+        <property name="minIdle" value="8"/>
         <property name="numTestsPerEvictionRun" value="1024"/>
         <property name="timeBetweenEvictionRunsMillis" value="30000"/>
         <property name="minEvictableIdleTimeMillis" value="-1"/>
@@ -51,20 +52,7 @@
         <property name="usePool" value="true"/>
     </bean>
 
-    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
         <property name="connectionFactory" ref="jedisConnectionFactory"/>
-        <!--以下针对各种数据进行序列化方式的选择-->
-        <property name="keySerializer">
-            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
-        </property>
-        <property name="valueSerializer">
-            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
-        </property>
-        <property name="hashKeySerializer">
-            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
-        </property>
-        <!--<property name="hashValueSerializer">
-            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
-        </property>-->
     </bean>
 </beans>

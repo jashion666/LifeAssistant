@@ -41,21 +41,16 @@ public class LoginController {
     TestService testService;
 
     @Autowired
-    ShardedJedisPool shardedJedisPool;
-
-    @Autowired
-    JedisClient jedisClient;
-
+    private ShardedJedisPool shardedJedisPool;
 
     @RequestMapping("/login")
     @ResponseBody
     public String login() {
-        jedisClient.set("1","redis测试：字符串");
         //获取ShardedJedis对象
         ShardedJedis shardJedis = shardedJedisPool.getResource();
 
         shardJedis.set("1","redis测试：字符串");
-        shardJedis.resetState();
+        shardJedis.close();
         TestAdminEntity info = testService.getTestInfo();
         TestServiceEntity serviceUserInfo = testReadService.findUserInfo();
         LOG.info(serviceUserInfo.getUserName());
@@ -67,6 +62,7 @@ public class LoginController {
     public String save() {
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
         LOG.debug(shardedJedis.get("1"));
+        shardedJedis.close();
         testWriteService.saveUserInfo(new TestServiceEntity());
         return "";
     }
