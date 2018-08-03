@@ -28,11 +28,10 @@
         <mybatis.version>3.2.8</mybatis.version>
         <!-- mysql驱动版本号 -->
         <mysql-driver.version>8.0.11</mysql-driver.version>
-        <!-- log4j日志包版本号 -->
-        <slf4j.version>1.7.18</slf4j.version>
-        <log4j.version>1.2.17</log4j.version>
         <druid.version>1.1.10</druid.version>
-
+        <!--redis版本号-->
+        <redis.version>1.7.2.RELEASE</redis.version>
+        <jedis.version>2.9.0</jedis.version>
     </properties>
 
     <dependencies>
@@ -41,6 +40,13 @@
         <dependency>
             <groupId>com.assistant</groupId>
             <artifactId>assistant-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!-- 将common以jar形式导入 -->
+        <dependency>
+            <groupId>com.assistant</groupId>
+            <artifactId>assistant-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
@@ -112,12 +118,24 @@
             <artifactId>spring-aop</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
+        <!--redis依赖-->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>${redis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
+
 
         <!-- 添加mybatis依赖 -->
         <dependency>
@@ -168,45 +186,23 @@
             <version>1.2.22</version>
         </dependency>
 
-        <!-- 添加日志相关jar包 -->
-        <!-- Logging begin -->
         <!-- Logback -->
-        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-core -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
             <version>1.2.3</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.logback-extensions/logback-ext-spring -->
         <dependency>
             <groupId>org.logback-extensions</groupId>
             <artifactId>logback-ext-spring</artifactId>
             <version>0.1.4</version>
         </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-        <!--<dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
-        </dependency>-->
-        <!-- https://mvnrepository.com/artifact/org.slf4j/jcl-over-slf4j -->
-        <!--<dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.7.25</version>
-        </dependency>-->
-        <!-- Logging end -->
+        <!-- Logback end -->
 
         <!-- 映入JSON -->
         <dependency>

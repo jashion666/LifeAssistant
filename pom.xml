@@ -13,6 +13,7 @@
         <module>assistant-service</module>
         <module>assistant-admin</module>
         <module>assistant-server</module>
+        <module>assistant-common</module>
     </modules>
     <packaging>pom</packaging>
 

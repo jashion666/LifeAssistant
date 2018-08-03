@@ -27,9 +27,13 @@
             <id>dev</id>
             <properties>
                 <db.driver>com.mysql.jdbc.Driver</db.driver>
-                <db.connectionURL>jdbc:mysql://localhost:3306/assistant</db.connectionURL>
+                <db.connectionURL>jdbc:mysql://192.168.1.212:3306/assistant</db.connectionURL>
                 <db.username>root</db.username>
                 <db.password>admin</db.password>
+                <cache.host>192.168.1.95</cache.host>
+                <cache.password>98438826BD65FA69</cache.password>
+                <cache.port>6379</cache.port>
+                <cache.timeout>0</cache.timeout>
             </properties>
         </profile>
     </profiles>
