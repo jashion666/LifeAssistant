@@ -29,30 +29,16 @@
         <property name="blockWhenExhausted" value="false"/>
     </bean>
 
-    <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
-        <constructor-arg index="0" ref="jedisPoolConfig"/>
-        <constructor-arg index="1">
-            <list>
-                <bean class="redis.clients.jedis.JedisShardInfo">
-                    <constructor-arg name="host" value="${cache.host}"/>
-                    <constructor-arg name="port" value="${cache.port}"/>
-                    <constructor-arg name="timeout" value="${cache.timeout}"/>
-                </bean>
-            </list>
-        </constructor-arg>
-    </bean>
-
-    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-          destroy-method="destroy">
-        <property name="poolConfig" ref="jedisPoolConfig"/>
-        <property name="hostName" value="${cache.host}"/>
-        <property name="port" value="${cache.port}"/>
-        <property name="timeout" value="${cache.timeout}"/>
+    <bean id="redisPool" class="com.assistant.jedis.impl.RedisPool" init-method="init">
+        <property name="config" ref="jedisPoolConfig" />
+        <property name="serverIp" value="${cache.host}" />
+        <property name="port" value="${cache.port}" />
+        <property name="timeOut" value="${cache.timeout}"/>
         <property name="password" value="${cache.password}"/>
-        <property name="usePool" value="true"/>
     </bean>
 
-    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
-        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+    <bean id="redisManager" class="com.assistant.jedis.impl.RedisManager">
+        <property name="redisPool" ref="redisPool" />
     </bean>
+
 </beans>

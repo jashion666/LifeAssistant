@@ -320,6 +320,13 @@
             <version>0.10</version>
         </dependency>
 
+        <!--字符串工具类-->
+        <dependency>
+            <groupId>com.shekhargulati</groupId>
+            <artifactId>strman</artifactId>
+            <version>0.4.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
