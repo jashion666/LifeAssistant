@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>iview example</title>
+    <link rel="stylesheet" type="text/css" href="vue/css/iview.css">
+    <script type="text/javascript" src="vue/js/iview.min.js"></script>
+    <script type="text/javascript" src="vue/js/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <Tabs value="name1">
+        <Tab-pane label="我是" name="name1">你好</Tab-pane>
+        <Tab-pane label="博主" name="name2">我是</Tab-pane>
+        <Tab-pane label="秋意正寒" name="name3">秋意正寒</Tab-pane>
+    </Tabs>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+    })
+</script>
+</body>
+</html>
