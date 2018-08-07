@@ -28,7 +28,9 @@
         <mvc:resources location="/page/static/" mapping="/page/static/**" />
         <mvc:resources location="/page/error/" mapping="/page/error/**" />
         <mvc:resources location="/page/common/" mapping="/page/common/**" />-->
-    <!--<mvc:resources location="/page/layer/" mapping="/layer/**" />-->
+    <mvc:resources location="/vue/" mapping="/vue/**" />
+
+    <!--<mvc:resources location="/page/main/" mapping="/html/*.html"/>-->
 
     <!-- 添加注解驱动 -->
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
@@ -69,10 +71,33 @@
     <!--<mvc:default-servlet-handler />-->
 
     <!-- 定义跳转的文件的前后缀 ，视图模式配置 -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/page/main/"/>
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<property name="prefix" value="/WEB-INF/page/main/"/>-->
+        <!--<property name="suffix" value=".html"/>-->
+    <!--</bean>-->
+
+    <!--使用SpringMVC FreeMaker视图解析-->
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath">
+            <array>
+                <value>/WEB-INF/page/main/</value>
+            </array>
+        </property>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="template_update_delay">1</prop>
+                <!-- 不配置这个HTML中文乱码-->
+                <prop key="defaultEncoding">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="contentType" value="text/html;charset=UTF-8"/>
         <property name="suffix" value=".html"/>
     </bean>
+
+
+    <!--<mvc:resources location="/WEB-INF/page/main/" mapping="/**.html" />-->
 
     <!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

@@ -33,8 +33,6 @@ public class TestWriteServiceImpl implements TestWriteService {
             logger.debug("aa" + result);
             System.out.println(result);
         }
-
-
         return 1/0;
     }
 }

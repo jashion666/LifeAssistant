@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date ：2018/7/26.
  */
 @Controller
+@RequestMapping("user")
 public class LoginController {
 
     private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
@@ -34,6 +35,11 @@ public class LoginController {
 
     @Autowired
     JedisClient redisManager;
+
+    @RequestMapping("index")
+    public String index(){
+        return "login";
+    }
 
     @RequestMapping("/login")
     @ResponseBody

@@ -31,7 +31,7 @@
                 <db.username>root</db.username>
                 <db.password>admin</db.password>
                 <dubbo.zookeeper>192.168.1.212:2181</dubbo.zookeeper>
-                <cache.host>127.0.0.1</cache.host>
+                <cache.host>192.168.1.95</cache.host>
                 <cache.password>98438826BD65FA69</cache.password>
                 <cache.port>6379</cache.port>
                 <cache.timeout>30000</cache.timeout>
