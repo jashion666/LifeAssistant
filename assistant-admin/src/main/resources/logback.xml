@@ -25,7 +25,7 @@
     <appender name="debugAppender"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 文件路径 -->
-        <file>${log.filePath}/debug.log</file>
+        <file>${log.filePath}/debug/debug.log</file>
         <!-- 滚动策略 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 设置文件名称 -->
@@ -52,7 +52,7 @@
     <!-- INFO，表示文件随着时间的推移按时间生成日志文件 -->
     <appender name="infoAppender"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.filePath}/info.log</file>
+        <file>${log.filePath}/info/info.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
                 ${log.filePath}/info/info.%d{yyyy-MM-dd}.log
@@ -72,7 +72,7 @@
     <!-- ERROR，表示文件随着时间的推移按时间生成日志文件 -->
     <appender name="errorAppender"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.filePath}/error.log</file>
+        <file>${log.filePath}/error/error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
                 ${log.filePath}/error/error.%d{yyyy-MM-dd}.log

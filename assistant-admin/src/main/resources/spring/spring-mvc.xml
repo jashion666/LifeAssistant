@@ -28,7 +28,7 @@
         <mvc:resources location="/page/static/" mapping="/page/static/**" />
         <mvc:resources location="/page/error/" mapping="/page/error/**" />
         <mvc:resources location="/page/common/" mapping="/page/common/**" />-->
-    <mvc:resources location="/vue/" mapping="/vue/**" />
+    <mvc:resources location="/layui/" mapping="/layui/**" />
 
     <!--<mvc:resources location="/page/main/" mapping="/html/*.html"/>-->
 
