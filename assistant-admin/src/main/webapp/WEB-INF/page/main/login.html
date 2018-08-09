@@ -1,12 +1,93 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>用户登录</title>
     <link rel="stylesheet" type="text/css" href="/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="/layui/css/style.css">
     <script type="text/javascript" src="/layui/layui.js"></script>
 </head>
+
 <body>
-<h2>Hello World!用户登录</h2>
+<!-- logo -->
+<div class="layui-container layui-bg-black layui-logo-row">
+    <div class="layui-row ">
+        <h1 class="layui-logo-p">LIFE ASSISTANT. 您的私人生活助手</h1>
+    </div>
+</div>
+
+<!-- login -->
+<div class="layui-containe layui-login-box">
+    <form class="layui-form layui-form-pane " action="" style="width: 365px;margin-left: 12px;height: 100%;">
+        <div class="layui-tab layui-tab-brief ">
+            <ul class="layui-tab-title layui-login-switch">
+                <li class="layui-this">登录</li>
+                <li>注册</li>
+            </ul>
+        </div>
+
+        <div class="layui-form-item" style="margin-top:30px ;">
+            <label class="layui-form-label ">用户名</label>
+            <div class="layui-input-block ">
+                <input type="text" name="username" lay-verify="required" autocomplete="off" placeholder="用户名 "
+                       class="layui-input ">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label ">密码</label>
+            <div class="layui-input-block ">
+                <input type="password" name="password" lay-verify="required" placeholder="请输入密码"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label ">验证码</label>
+            <div class="layui-input-block ">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">记住登录</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="remember" lay-skin="switch" lay-text="开启|关闭">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div style="width: 100%; margin-top: 20px;">
+                <button class="layui-btn layui-btn-fluid" style="background: #5FB878;">登录</button>
+            </div>
+        </div>
+    </form>
+     <span style="float: right;">
+        <a href="" style="color: #01AAED;">forget your password？</a>
+    </span>
+</div>
 </body>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+                layer = layui.layer;
+
+        //监听指定开关
+        form.on('switch(switchTest)', function () {
+            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+                offset: '6px'
+            });
+        });
+        //表单初始赋值
+        form.val('example', {
+            //复选框选中状态
+            "like[write]": true,
+            //开关状态
+            "close": true
+        })
+    });
+</script>
+
 </html>
