@@ -11,7 +11,8 @@
     <script type="text/javascript" src="/layui/layui.js"></script>
 </head>
 
-<body>
+<body class="layui-login-img">
+
 <!-- logo -->
 <div class="layui-container layui-bg-black layui-logo-row">
     <div class="layui-row ">
@@ -20,8 +21,8 @@
 </div>
 
 <!-- login -->
-<div class="layui-containe layui-login-box">
-    <form class="layui-form layui-form-pane " action="" style="width: 365px;margin-left: 12px;height: 100%;">
+<div class="layui-containe layui-login-box  ">
+    <form action="/user/login" method="post" class="layui-form layui-form-pane layui-login-position">
         <div class="layui-tab layui-tab-brief ">
             <ul class="layui-tab-title layui-login-switch">
                 <li class="layui-this">登录</li>
@@ -40,39 +41,52 @@
         <div class="layui-form-item">
             <label class="layui-form-label ">密码</label>
             <div class="layui-input-block ">
-                <input type="password" name="password" lay-verify="required" placeholder="请输入密码"
-                       autocomplete="off" class="layui-input">
+                <input type="password" name="password" lay-verify="required" placeholder="请输入密码" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label ">验证码</label>
-            <div class="layui-input-block ">
+            <div class="site-doc-icon site-doc-anim">
+                <div class="layui-anim" data-anim="layui-anim-scale">我是验证码</div>
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">记住登录</label>
-            <div class="layui-input-block">
-                <input type="checkbox" name="remember" lay-skin="switch" lay-text="开启|关闭">
-            </div>
+            <input type="checkbox" name="remember" lay-skin="switch" lay-text="记住我|不记住">
         </div>
-
+                <span style="float: right;">
+                    <a href="" style="color: #01AAED;">forget your password？</a>
+                </span>
         <div class="layui-form-item">
             <div style="width: 100%; margin-top: 20px;">
-                <button class="layui-btn layui-btn-fluid" style="background: #5FB878;">登录</button>
+                <button lay-submit lay-filter="*" class="layui-btn layui-btn-fluid" style="background: #5FB878;">登录
+                </button>
             </div>
         </div>
     </form>
-     <span style="float: right;">
-        <a href="" style="color: #01AAED;">forget your password？</a>
-    </span>
 </div>
+
 </body>
+
 <script>
-    layui.use(['form'], function () {
+    layui.use(['form', 'jquery', 'flow'], function () {
         var form = layui.form,
-                layer = layui.layer;
+                layer = layui.layer,
+                $ = layui.$,
+                flow = layui.flow;
+
+        flow.lazyimg();
+
+        form.on('submit(*)', function (data) {
+            $.post("/user/login", data.field, function (res) {
+                console.log(res);
+                layer.msg(res.userName)
+            }, 'json');
+
+            return false;
+        });
 
         //监听指定开关
         form.on('switch(switchTest)', function () {
@@ -86,7 +100,19 @@
             "like[write]": true,
             //开关状态
             "close": true
-        })
+        });
+
+        //演示动画
+        $('.site-doc-icon .layui-anim').on('click', function () {
+            var othis = $(this),
+                    anim = othis.data('anim');
+
+            othis.removeClass(anim);
+
+            setTimeout(function () {
+                othis.addClass(anim);
+            });
+        });
     });
 </script>
 

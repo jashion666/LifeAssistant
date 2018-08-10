@@ -13,7 +13,7 @@ import javax.annotation.Resource;
  * @author ：会写代码的厨师.
  * @date ：2018/8/2.
  */
-@Service(timeout = 2000)
+@Service(timeout = 20000)
 @org.springframework.stereotype.Service
 public class TestWriteServiceImpl implements TestWriteService {
 

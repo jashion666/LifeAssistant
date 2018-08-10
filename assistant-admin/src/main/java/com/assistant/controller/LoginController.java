@@ -43,12 +43,12 @@ public class LoginController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public String login() {
+    public TestServiceEntity login(TestAdminEntity test) {
         redisManager.set("1", "redis测试：字符串");
         TestAdminEntity info = testService.getTestInfo();
         TestServiceEntity serviceUserInfo = testReadService.findUserInfo();
         LOG.info(serviceUserInfo.getUserName());
-        return "admin的结果：" + info.toString() + "   service 的结果：" + serviceUserInfo.toString();
+        return serviceUserInfo;
     }
 
     @RequestMapping("/save")
