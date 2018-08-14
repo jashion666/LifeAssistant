@@ -12,6 +12,7 @@
       http://www.springframework.org/schema/context
       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+    <!--Jedis 连接池-->
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <property name="maxTotal" value="2048"/>
         <property name="maxIdle" value="300"/>
@@ -29,16 +30,32 @@
         <property name="blockWhenExhausted" value="false"/>
     </bean>
 
-    <bean id="redisPool" class="com.assistant.jedis.impl.RedisPool" init-method="init">
-        <property name="config" ref="jedisPoolConfig" />
-        <property name="serverIp" value="${cache.host}" />
-        <property name="port" value="${cache.port}" />
-        <property name="timeOut" value="${cache.timeout}"/>
+    <!-- redis服务器中心 -->
+    <bean id="connectionFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="poolConfig" ref="jedisPoolConfig"/>
+        <property name="port" value="${cache.port}"/>
+        <property name="hostName" value="${cache.host}"/>
+        <property name="timeout" value="${cache.timeout}"/>
         <property name="password" value="${cache.password}"/>
     </bean>
 
-    <bean id="redisManager" class="com.assistant.jedis.impl.RedisManager">
-        <property name="redisPool" ref="redisPool" />
+    <!--redis模板-->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="keySerializer">
+            <bean
+                    class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="valueSerializer">
+            <bean
+                    class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+        </property>
+    </bean>
+
+
+    <bean id="redisManager" class="com.assistant.jedis.impl.JedisClientImpl">
+        <property name="redisTemplate" ref="redisTemplate"/>
     </bean>
 
 </beans>

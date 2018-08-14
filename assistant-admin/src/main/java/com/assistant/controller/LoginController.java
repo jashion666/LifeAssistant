@@ -34,17 +34,17 @@ public class LoginController {
     TestService testService;
 
     @Autowired
-    JedisClient redisManager;
+    JedisClient jedisClient;
 
     @RequestMapping("index")
-    public String index(){
+    public String index() {
         return "login";
     }
 
     @RequestMapping("/login")
     @ResponseBody
     public TestServiceEntity login(TestAdminEntity test) {
-        redisManager.set("1", "redis测试：字符串");
+        jedisClient.set("1", "redis测试：字符串");
         TestAdminEntity info = testService.getTestInfo();
         TestServiceEntity serviceUserInfo = testReadService.findUserInfo();
         LOG.info(serviceUserInfo.getUserName());
@@ -54,7 +54,7 @@ public class LoginController {
     @RequestMapping("/save")
     @ResponseBody
     public String save() {
-        LOG.debug(redisManager.get("1"));
+        LOG.debug((String) jedisClient.get("1"));
         testWriteService.saveUserInfo(new TestServiceEntity());
         return "";
     }
