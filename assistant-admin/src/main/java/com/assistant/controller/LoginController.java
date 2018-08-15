@@ -51,6 +51,12 @@ public class LoginController {
         return serviceUserInfo;
     }
 
+    @RequestMapping("welcome")
+    public String welcome() {
+        return "welcome";
+    }
+
+
     @RequestMapping("/save")
     @ResponseBody
     public String save() {
