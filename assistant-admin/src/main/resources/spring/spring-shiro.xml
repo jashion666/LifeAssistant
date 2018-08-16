@@ -10,23 +10,27 @@
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <!-- loginUrl认证提交地址，如果没有认证将会请求此地址进行认证，请求此地址将由formAuthenticationFilter进行表单认证 -->
-        <property name="loginUrl" value="/user/login"/>
+        <property name="loginUrl" value="/user/index"/>
         <!-- welcome.action，建议不配置，shiro认证成功自动到上一个请求路径 -->
         <property name="successUrl" value="/user/welcome"/>
         <!-- 通过unauthorizedUrl指定没有权限操作时跳转页面 -->
         <property name="unauthorizedUrl" value="/user/index"/>
 
-        <property name="filters">
+        <!--<property name="filters">
             <util:map>
-                <!-- 将自定义 的FormAuthenticationFilter注入shiroFilter中 -->
+                &lt;!&ndash; 将自定义 的FormAuthenticationFilter注入shiroFilter中 &ndash;&gt;
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
             </util:map>
-        </property>
+        </property>-->
 
         <property name="filterChainDefinitions">
             <value>
                 <!-- 静态资源放行 -->
                 /layui/** = anon
+                <!--首页-->
+                /index.html= anon
+                /user/index = anon
+                /user/login = anon
                 <!-- 对错误页面放行 -->
                 <!--/exception = anon-->
 

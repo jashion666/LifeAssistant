@@ -9,8 +9,9 @@ import org.apache.shiro.subject.PrincipalCollection;
 
 /**
  * shiro realm
+ *
  * @author ：会写代码的厨师.
- * 时间：2018-08-14.
+ *         时间：2018-08-14.
  */
 public class UserRealm extends AuthorizingRealm {
 
@@ -28,12 +29,15 @@ public class UserRealm extends AuthorizingRealm {
     /**
      * 角色认证
      *
-     * @param authenticationToken token
+     * @param token token
      * @return AuthenticationInfo
      * @throws AuthenticationException
      */
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+
+        String username = (String) token.getPrincipal();
+        String password = (String) token.getCredentials();
         return null;
     }
 }

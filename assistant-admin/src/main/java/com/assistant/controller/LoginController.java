@@ -7,6 +7,8 @@ import com.assistant.jedis.JedisClient;
 import com.assistant.service.TestService;
 import com.assistant.service.test.read.TestReadService;
 import com.assistant.service.test.write.TestWriteService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,9 @@ public class LoginController {
     @RequestMapping("/login")
     @ResponseBody
     public TestServiceEntity login(TestAdminEntity test) {
+
+        SecurityUtils.getSubject().login(new UsernamePasswordToken(test.getUsername(), test.getPassword()));
+
         jedisClient.set("1", "redis测试：字符串");
         TestAdminEntity info = testService.getTestInfo();
         TestServiceEntity serviceUserInfo = testReadService.findUserInfo();
