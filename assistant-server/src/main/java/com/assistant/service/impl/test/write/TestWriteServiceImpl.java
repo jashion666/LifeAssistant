@@ -27,7 +27,7 @@ public class TestWriteServiceImpl implements TestWriteService {
         int result;
         for (int i = 0; i < 5; i++) {
             TestServiceEntity u = new TestServiceEntity();
-            u.setUserName("测试" + i);
+            u.setUsername("测试" + i);
             u.setPassword("000" + i);
             result = testWriteMapper.saveUserInfo(u);
             logger.debug("aa" + result);

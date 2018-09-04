@@ -5,8 +5,8 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import javax.servlet.ServletRequest;
 
 /**
- * 作者：会写代码的厨师.
- * 时间：2018-08-14.
+ * @author ：会写代码的厨师.
+ * @date ：2018-08-14.
  */
 public class CaptchaUsernamePasswordToken extends UsernamePasswordToken {
 

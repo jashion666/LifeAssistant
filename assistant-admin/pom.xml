@@ -27,7 +27,7 @@
             <id>dev</id>
             <properties>
                 <db.driver>com.mysql.jdbc.Driver</db.driver>
-                <db.connectionURL>jdbc:mysql://192.168.1.212:3306/assistant</db.connectionURL>
+                <db.connectionURL>jdbc:mysql://192.168.1.95:3306/assistant</db.connectionURL>
                 <db.username>root</db.username>
                 <db.password>admin</db.password>
                 <dubbo.zookeeper>192.168.1.212:2181</dubbo.zookeeper>

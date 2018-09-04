@@ -1,14 +1,19 @@
-package com.assistant.controller;
+package com.assistant.controller.user;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.assistant.entity.TestAdminEntity;
 import com.assistant.entity.test.TestServiceEntity;
+import com.assistant.entity.user.UserEntity;
 import com.assistant.jedis.JedisClient;
 import com.assistant.service.TestService;
 import com.assistant.service.test.read.TestReadService;
 import com.assistant.service.test.write.TestWriteService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +26,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date ：2018/7/26.
  */
 @Controller
-@RequestMapping("user")
+@RequestMapping("/user")
 public class LoginController {
 
     private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
-
-    @Reference(check = false)
-    TestReadService testReadService;
-
-    @Reference(check = false)
-    TestWriteService testWriteService;
 
     @Autowired
     TestService testService;
@@ -38,37 +37,33 @@ public class LoginController {
     @Autowired
     JedisClient jedisClient;
 
-    @RequestMapping("index")
+    @RequestMapping("/index")
     public String index() {
         return "login";
     }
 
     @RequestMapping("/login")
     @ResponseBody
-    public TestServiceEntity login(TestAdminEntity test) {
+    public TestServiceEntity login(UserEntity user) {
 
-        SecurityUtils.getSubject().login(new UsernamePasswordToken(test.getUsername(), test.getPassword()));
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
+        try {
+            subject.login(token);
+        } catch (UnknownAccountException e) {
+            LOG.error("该用户不存在");
+        } catch (LockedAccountException e) {
+            LOG.error("该用户被冻结");
+        }catch(IncorrectCredentialsException e){
+            LOG.error("密码错误，数据库密码需要加盐再md5两次");
+        }
 
-        jedisClient.set("1", "redis测试：字符串");
-        TestAdminEntity info = testService.getTestInfo();
-        TestServiceEntity serviceUserInfo = testReadService.findUserInfo();
-        LOG.info(serviceUserInfo.getUserName());
-        return serviceUserInfo;
+        return null;
     }
 
-    @RequestMapping("welcome")
+    @RequestMapping("/welcome")
     public String welcome() {
         return "welcome";
     }
-
-
-    @RequestMapping("/save")
-    @ResponseBody
-    public String save() {
-        LOG.debug((String) jedisClient.get("1"));
-        testWriteService.saveUserInfo(new TestServiceEntity());
-        return "";
-    }
-
 
 }

@@ -8,26 +8,26 @@ import java.io.Serializable;
  */
 public class TestServiceEntity implements Serializable {
 
-    private int userId;
+    private int uid;
 
-    private String userName;
+    private String username;
 
     private String password;
 
-    public int getUserId() {
-        return userId;
+    public int getUid() {
+        return uid;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -37,5 +37,4 @@ public class TestServiceEntity implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }

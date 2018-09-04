@@ -3,7 +3,7 @@
 <mapper namespace="com.assistant.dao.test.read.TestReadMapper">
 
     <select id="findUserInfo" resultType="com.assistant.entity.test.TestServiceEntity">
-        select * from t_user
+        select * from USER
     </select>
 
 </mapper>

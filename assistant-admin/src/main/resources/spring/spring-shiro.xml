@@ -9,19 +9,19 @@
     <!-- Shiro 的Web过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
-        <!-- loginUrl认证提交地址，如果没有认证将会请求此地址进行认证，请求此地址将由formAuthenticationFilter进行表单认证 -->
+        <!-- 登录时访问的页面，即没有登录时访问任何页面跳转的页面。默认的是/user/index -->
         <property name="loginUrl" value="/user/index"/>
         <!-- welcome.action，建议不配置，shiro认证成功自动到上一个请求路径 -->
         <property name="successUrl" value="/user/welcome"/>
         <!-- 通过unauthorizedUrl指定没有权限操作时跳转页面 -->
         <property name="unauthorizedUrl" value="/user/index"/>
 
-        <!--<property name="filters">
-            <util:map>
-                &lt;!&ndash; 将自定义 的FormAuthenticationFilter注入shiroFilter中 &ndash;&gt;
-                <entry key="authc" value-ref="formAuthenticationFilter"/>
-            </util:map>
-        </property>-->
+        <!--<property name="filters">-->
+            <!--<util:map>-->
+                <!--&lt;!&ndash; 将自定义 的FormAuthenticationFilter注入shiroFilter中 &ndash;&gt;-->
+                <!--<entry key="authc" value-ref="formAuthenticationFilter"/>-->
+            <!--</util:map>-->
+        <!--</property>-->
 
         <property name="filterChainDefinitions">
             <value>
@@ -42,7 +42,7 @@
                 /main/home/welcome.html = user
                 <!-- 请求 logout，shiro去清除session -->
                 <!--/user/logout = logout-->
-                <!-- /** = authc 所有url都必须认证通过才可以访问 -->
+                <!-- /** = user 所有url都必须认证通过才可以访问 -->
                 /** = authc
             </value>
 
@@ -69,16 +69,16 @@
 
     <!-- 自定义form认证过虑器 -->
     <!-- 基于Form表单的身份验证过滤器，不配置将也会注册此过虑器，表单中的用户账号、密码及loginurl将采用默认值，建议配置 -->
-    <bean id="formAuthenticationFilter" class="com.assistant.shiro.CustomFormAuthenticationFilter">
-        <!-- 表单中账号的input名称 -->
-        <property name="usernameParam" value="username"/>
-        <!-- 表单中密码的input名称 -->
-        <property name="passwordParam" value="password"/>
-        <!-- 记住我input的名称 -->
-        <property name="rememberMeParam" value="rememberMe"/>
+    <!--<bean id="formAuthenticationFilter" class="com.assistant.shiro.CustomFormAuthenticationFilter">-->
+        <!--&lt;!&ndash; 表单中账号的input名称 &ndash;&gt;-->
+        <!--<property name="usernameParam" value="username"/>-->
+        <!--&lt;!&ndash; 表单中密码的input名称 &ndash;&gt;-->
+        <!--<property name="passwordParam" value="password"/>-->
+        <!--&lt;!&ndash; 记住我input的名称 &ndash;&gt;-->
+        <!--<property name="rememberMeParam" value="rememberMe"/>-->
 
-        <property name="loginUrl" value="/user/login"/>
-    </bean>
+        <!--<property name="loginUrl" value="/user/login"/>-->
+    <!--</bean>-->
 
     <!-- 会话ID生成器 -->
     <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
@@ -119,7 +119,6 @@
         <!-- 删除失效的session -->
         <property name="deleteInvalidSessions" value="true"/>
     </bean>
-
 
     <!-- rememberMeManager管理器，写cookie，取出cookie生成用户信息 -->
     <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
