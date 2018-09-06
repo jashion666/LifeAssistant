@@ -35,6 +35,11 @@ public class UserEntity {
      */
     private String userState;
 
+    /**
+     * 盐
+     */
+    private String salt;
+
     public long getUid() {
         return uid;
     }
@@ -81,5 +86,13 @@ public class UserEntity {
 
     public void setUserState(String userState) {
         this.userState = userState;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }

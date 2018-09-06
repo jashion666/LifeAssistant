@@ -1,13 +1,9 @@
 package com.assistant.controller.user;
 
-import com.alibaba.dubbo.config.annotation.Reference;
-import com.assistant.entity.TestAdminEntity;
 import com.assistant.entity.test.TestServiceEntity;
 import com.assistant.entity.user.UserEntity;
 import com.assistant.jedis.JedisClient;
 import com.assistant.service.TestService;
-import com.assistant.service.test.read.TestReadService;
-import com.assistant.service.test.write.TestWriteService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;

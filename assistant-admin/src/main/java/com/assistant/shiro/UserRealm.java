@@ -3,10 +3,13 @@ package com.assistant.shiro;
 import com.assistant.commom.UserConstant;
 import com.assistant.entity.user.UserEntity;
 import com.assistant.service.user.UserService;
+import com.sun.istack.internal.logging.Logger;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -16,6 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  *         时间：2018-08-14.
  */
 public class UserRealm extends AuthorizingRealm {
+
+    /**
+     * log
+     */
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(UserRealm.class);
 
     /**
      * 用户接口
@@ -46,10 +54,15 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
-        String username = (String) token.getPrincipal();
+        //把AuthenticationToken 转换为UsernamePasswordToken
+        UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
+
+        String username = usernamePasswordToken.getUsername();
 
         //依据用户名查询用户信息
         UserEntity userInfo = userService.findByUsername(username);
+
+        LOG.info("----用户输入用户名：" + username);
 
         //该用户不存在
         if (userInfo == null) {
@@ -61,6 +74,9 @@ public class UserRealm extends AuthorizingRealm {
             throw new LockedAccountException();
         }
 
-        return new SimpleAuthenticationInfo(userInfo, userInfo.getPassword(), getName());
+        ByteSource credentialsSalt = ByteSource.Util.bytes(username);
+
+        //用户名+密码+盐进行验证
+        return new SimpleAuthenticationInfo(userInfo, userInfo.getPassword(), credentialsSalt, getName());
     }
 }
