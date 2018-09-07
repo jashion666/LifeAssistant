@@ -105,10 +105,12 @@
 
     <!-- 凭证匹配器 -->
     <bean id="credentialsMatcher"
-          class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+          class="com.assistant.shiro.RetryLimitHashedCredentialsMatcher">
+        <constructor-arg ref="cacheManager" />
         <property name="hashAlgorithmName" value="md5"/>
         <!--hash 2次-->
         <property name="hashIterations" value="2"/>
+        <property name="storedCredentialsHexEncoded" value="true"/>
     </bean>
 
     <!-- 会话管理器 -->

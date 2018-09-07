@@ -95,4 +95,8 @@ public class UserEntity {
     public void setSalt(String salt) {
         this.salt = salt;
     }
+
+    public String getCredentialsSalt() {
+        return username + salt;
+    }
 }

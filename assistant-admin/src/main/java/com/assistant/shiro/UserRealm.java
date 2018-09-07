@@ -1,9 +1,8 @@
 package com.assistant.shiro;
 
-import com.assistant.commom.UserConstant;
+import com.assistant.common.UserConstant;
 import com.assistant.entity.user.UserEntity;
 import com.assistant.service.user.UserService;
-import com.sun.istack.internal.logging.Logger;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -74,9 +73,9 @@ public class UserRealm extends AuthorizingRealm {
             throw new LockedAccountException();
         }
 
-        ByteSource credentialsSalt = ByteSource.Util.bytes(username);
 
         //用户名+密码+盐进行验证
-        return new SimpleAuthenticationInfo(userInfo, userInfo.getPassword(), credentialsSalt, getName());
+        return new SimpleAuthenticationInfo(userInfo.getUsername(), userInfo.getPassword(), ByteSource.Util.bytes(userInfo.getCredentialsSalt()),
+                getName());
     }
 }

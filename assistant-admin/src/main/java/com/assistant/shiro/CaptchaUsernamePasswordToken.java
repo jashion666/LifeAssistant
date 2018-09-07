@@ -5,6 +5,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import javax.servlet.ServletRequest;
 
 /**
+ * 扩展UsernamePasswordToken进行表单验证（之后追加）
  * @author ：会写代码的厨师.
  * @date ：2018-08-14.
  */

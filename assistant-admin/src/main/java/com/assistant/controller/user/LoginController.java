@@ -5,10 +5,7 @@ import com.assistant.entity.user.UserEntity;
 import com.assistant.jedis.JedisClient;
 import com.assistant.service.TestService;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +49,8 @@ public class LoginController {
             LOG.error("该用户被冻结");
         }catch(IncorrectCredentialsException e){
             LOG.error("密码错误，数据库密码需要加盐再md5两次");
+        }catch(ExcessiveAttemptsException e){
+            LOG.error("登录次数超过五次，请10分钟再试");
         }
 
         return null;
