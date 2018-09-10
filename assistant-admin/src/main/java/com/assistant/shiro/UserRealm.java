@@ -61,7 +61,7 @@ public class UserRealm extends AuthorizingRealm {
         //依据用户名查询用户信息
         UserEntity userInfo = userService.findByUsername(username);
 
-        LOG.info("----用户输入用户名：" + username);
+        LOG.info("用户输入用户名：" + username);
 
         //该用户不存在
         if (userInfo == null) {

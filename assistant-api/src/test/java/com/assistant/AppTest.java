@@ -3,6 +3,8 @@ package com.assistant;
 
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 import org.junit.Test;
 
 import java.io.*;
@@ -20,6 +22,12 @@ public class AppTest {
     @Test
     public void shouldAnswerWithTrue() {
         String salt = RANDOM_NUMBER_GENERATOR.nextBytes().toHex();
+        System.out.println(salt);
+        String username = "test";
+        String password = "123456";
+        String credentialsSalt = username + salt;
+        String newPassword = new SimpleHash("md5",password, ByteSource.Util.bytes(credentialsSalt),2).toHex();
+        System.out.println(newPassword);
 
     }
 

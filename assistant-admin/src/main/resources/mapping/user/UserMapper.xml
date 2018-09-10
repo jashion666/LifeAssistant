@@ -7,10 +7,11 @@
         username username,
         password password,
         phone phone,
-        user_state userState
+        user_state userState,
+        salt salt
     </sql>
     <!---->
-    <select id="findUserInfo" parameterType="Map">
+    <select id="findUserInfo" parameterType="Map" resultType="com.assistant.entity.user.UserEntity">
         SELECT
           <include refid="userColumn"/>
         FROM USER

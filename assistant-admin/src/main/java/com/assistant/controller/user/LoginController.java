@@ -48,17 +48,18 @@ public class LoginController {
         } catch (LockedAccountException e) {
             LOG.error("该用户被冻结");
         }catch(IncorrectCredentialsException e){
-            LOG.error("密码错误，数据库密码需要加盐再md5两次");
+            LOG.error("密码错误");
         }catch(ExcessiveAttemptsException e){
-            LOG.error("登录次数超过五次，请10分钟再试");
+            LOG.error("登陆次数超过五次，请10分钟再试");
         }
 
+        LOG.info("登陆成功");
         return null;
     }
 
     @RequestMapping("/welcome")
     public String welcome() {
-        return "welcome";
+        return "home/welcome";
     }
 
 }

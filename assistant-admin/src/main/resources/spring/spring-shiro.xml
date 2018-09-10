@@ -12,7 +12,7 @@
         <!-- 登录时访问的页面，即没有登录时访问任何页面跳转的页面。默认的是/user/index -->
         <property name="loginUrl" value="/user/index"/>
         <!-- welcome.action，建议不配置，shiro认证成功自动到上一个请求路径 -->
-        <property name="successUrl" value="/user/welcome"/>
+        <!--<property name="successUrl" value="/user/welcome"/>-->
         <!-- 通过unauthorizedUrl指定没有权限操作时跳转页面 -->
         <property name="unauthorizedUrl" value="/user/index"/>
 
@@ -92,17 +92,6 @@
         <property name="password" value="${cache.password}"/>
     </bean>
 
-    <!-- redisSessionDAO -->
-    <bean id="redisSessionDAO" class="org.crazycake.shiro.RedisSessionDAO">
-        <property name="redisManager" ref="redisManager"/>
-        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
-    </bean>
-
-    <!-- 缓存管理器 -->
-    <bean id="cacheManager" class="org.crazycake.shiro.RedisCacheManager">
-        <property name="redisManager" ref="redisManager"/>
-    </bean>
-
     <!-- 凭证匹配器 -->
     <bean id="credentialsMatcher"
           class="com.assistant.shiro.RetryLimitHashedCredentialsMatcher">
@@ -112,6 +101,18 @@
         <property name="hashIterations" value="2"/>
         <property name="storedCredentialsHexEncoded" value="true"/>
     </bean>
+
+    <!-- 缓存管理器 -->
+    <bean id="cacheManager" class="org.crazycake.shiro.RedisCacheManager">
+        <property name="redisManager" ref="redisManager"/>
+    </bean>
+
+    <!-- redisSessionDAO -->
+    <bean id="redisSessionDAO" class="org.crazycake.shiro.RedisSessionDAO">
+        <property name="redisManager" ref="redisManager"/>
+        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+    </bean>
+
 
     <!-- 会话管理器 -->
     <bean id="sessionManager"

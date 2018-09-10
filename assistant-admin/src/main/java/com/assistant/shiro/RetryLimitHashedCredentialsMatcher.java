@@ -1,6 +1,7 @@
 package com.assistant.shiro;
 
 import com.assistant.common.UserConstant;
+import com.assistant.jedis.JedisClient;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
@@ -9,6 +10,7 @@ import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -34,20 +36,21 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
         passwordRetryCache = cacheManager.getCache("passwordRetryCache");
     }
 
+
+
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
 
         String username = (String) token.getPrincipal();
-        LOG.info("hash密码：" + token.getCredentials());
         // 尝试次数
         AtomicInteger retryCount = passwordRetryCache.get(username);
+        passwordRetryCache.put("aaa",new AtomicInteger(0));
 
         //将用户名登录次数存入缓存中
         if (retryCount == null) {
             retryCount = new AtomicInteger(0);
             passwordRetryCache.put(username, retryCount);
         }
-
         //五次限制
         if (retryCount.incrementAndGet() > UserConstant.LOGIN_RETRY_COUNT) {
             throw new ExcessiveAttemptsException();
