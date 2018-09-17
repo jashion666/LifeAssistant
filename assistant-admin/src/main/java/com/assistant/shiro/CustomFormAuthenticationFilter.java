@@ -26,6 +26,7 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
     protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
         String username = getUsername(request);
         String password = getPassword(request);
+        this.getLoginUrl();
         boolean rememberMe = isRememberMe(request);
         String host = getHost(request);
         CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken(username, password, rememberMe, host, true);
