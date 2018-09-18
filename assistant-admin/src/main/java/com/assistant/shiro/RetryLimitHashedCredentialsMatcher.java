@@ -49,8 +49,11 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
         //将用户名登录次数存入缓存中
         if (retryCount == null) {
             retryCount = new AtomicInteger(0);
-            passwordRetryCache.put(username, retryCount);
+        }else{
+            retryCount.incrementAndGet();
         }
+        passwordRetryCache.put(username, retryCount);
+
         //五次限制
         if (retryCount.incrementAndGet() > UserConstant.LOGIN_RETRY_COUNT) {
             throw new ExcessiveAttemptsException();

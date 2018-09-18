@@ -1,8 +1,10 @@
 package com.assistant.shiro;
 
+import com.assistant.jedis.JedisClient;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.crazycake.shiro.SerializeUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisTemplate;
 import java.io.Serializable;
@@ -15,6 +17,9 @@ import java.util.*;
 public class RedisCache<K, V> implements Cache<K, V> {
 
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private JedisClient client;
 
     private String keyPrefix =  "shiro_redis:";
 

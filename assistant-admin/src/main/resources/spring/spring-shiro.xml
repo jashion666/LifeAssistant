@@ -92,10 +92,15 @@
         <property name="password" value="${cache.password}"/>
     </bean>
 
+    <!-- redis 的缓存 -->
+    <bean id="customCacheManager" class="com.assistant.shiro.CustomCacheManager">
+        <property name="redisTemplate" ref="redisTemplate"/>
+    </bean>
+
     <!-- 凭证匹配器 -->
     <bean id="credentialsMatcher"
           class="com.assistant.shiro.RetryLimitHashedCredentialsMatcher">
-        <constructor-arg ref="cacheManager" />
+        <constructor-arg ref="customCacheManager" />
         <property name="hashAlgorithmName" value="md5"/>
         <!--hash 2次-->
         <property name="hashIterations" value="2"/>
