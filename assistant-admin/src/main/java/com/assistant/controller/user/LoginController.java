@@ -1,15 +1,10 @@
 package com.assistant.controller.user;
 
-import com.assistant.entity.test.TestServiceEntity;
 import com.assistant.entity.user.UserEntity;
-import com.assistant.jedis.JedisClient;
-import com.assistant.service.TestService;
+import com.assistant.result.JsonResult;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,41 +17,47 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/user")
 public class LoginController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
-
-    @Autowired
-    TestService testService;
-
-    @Autowired
-    JedisClient jedisClient;
-
+    /**
+     * 登录首页接口
+     *
+     * @return login.html
+     */
     @RequestMapping("/index")
     public String index() {
         return "login";
     }
 
+    /**
+     * 执行登录
+     *
+     * @param user 用户信息
+     * @return JsonResult
+     */
     @RequestMapping("/login")
     @ResponseBody
-    public TestServiceEntity login(UserEntity user) {
+    public JsonResult login(UserEntity user) {
 
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         try {
             subject.login(token);
         } catch (UnknownAccountException e) {
-            LOG.error("该用户不存在");
+            return new JsonResult<>(JsonResult.ERROR_CODE, "该用户不存在");
         } catch (LockedAccountException e) {
-            LOG.error("该用户被冻结");
-        }catch(IncorrectCredentialsException e){
-            LOG.error("密码错误");
-        }catch(ExcessiveAttemptsException e){
-            LOG.error("登陆次数超过五次，请10分钟再试");
+            return new JsonResult<>(JsonResult.ERROR_CODE, "该用户被冻结");
+        } catch (IncorrectCredentialsException e) {
+            return new JsonResult<>(JsonResult.ERROR_CODE, "密码错误");
+        } catch (ExcessiveAttemptsException e) {
+            return new JsonResult<>(JsonResult.ERROR_CODE, "登陆次数超过五次，请10分钟再试");
         }
-
-        LOG.info("登陆成功");
-        return null;
+        return new JsonResult<>(null);
     }
 
+    /**
+     * 登录成功后的首页
+     *
+     * @return 首页
+     */
     @RequestMapping("/welcome")
     public String welcome() {
         return "home/welcome";

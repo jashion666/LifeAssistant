@@ -79,7 +79,7 @@
 
         form.on('submit(*)', function (data) {
             $.post("/user/login", data.field, function (res) {
-                layer.msg("后台数据取得成功 ==》" + res.username)
+                layer.msg("返回数据 ==》" + res.message)
             }, 'json');
 
             return false;
