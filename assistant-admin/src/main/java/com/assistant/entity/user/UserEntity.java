@@ -40,6 +40,11 @@ public class UserEntity {
      */
     private String salt;
 
+    /**
+     * 记住我
+     */
+    private String rememberMe;
+
     public long getUid() {
         return uid;
     }
@@ -94,6 +99,14 @@ public class UserEntity {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public String getRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(String rememberMe) {
+        this.rememberMe = rememberMe;
     }
 
     public String getCredentialsSalt() {

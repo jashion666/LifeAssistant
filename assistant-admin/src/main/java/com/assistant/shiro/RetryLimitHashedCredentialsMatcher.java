@@ -34,7 +34,6 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
         passwordRetryCache = cacheManager.getCache("passwordRetryCache");
     }
 
-
     @Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
 

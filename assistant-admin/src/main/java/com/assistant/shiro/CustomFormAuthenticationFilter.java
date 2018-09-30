@@ -8,6 +8,7 @@ import javax.servlet.ServletResponse;
 
 /**
  * 表单过滤器
+ *
  * @author ：会写代码的厨师.
  * @date ：2018-08-14.
  */
@@ -24,13 +25,10 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
      */
     @Override
     protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
-        String username = getUsername(request);
-        String password = getPassword(request);
-        this.getLoginUrl();
-        boolean rememberMe = isRememberMe(request);
-        String host = getHost(request);
-        CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken(username, password, rememberMe, host, true);
+        CaptchaUsernamePasswordToken token = new CaptchaUsernamePasswordToken(getUsername(request), getPassword(request), isRememberMe(request),
+                getHost(request), true);
         token.setRequest(request);
         return token;
     }
+
 }

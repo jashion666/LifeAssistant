@@ -1,5 +1,7 @@
 package com.assistant.result;
 
+import com.assistant.enums.ResultCodeEnum;
+
 import java.io.Serializable;
 
 /**
@@ -11,22 +13,17 @@ public class JsonResult<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 成功标识
+     * 返回信息正常
      */
-    public static final int SUCCESS_CODE = 1;
-
-    /**
-     * 失败标识
-     */
-    public static final int ERROR_CODE = -1;
+    private static final String SUCCESS_MESSAGE = "正常";
 
     /**
      * 返回信息正常
      */
-    private static final String MESSAGE = "正常";
+    private static final String FAILED_MESSAGE = "失败";
 
     /**
-     * 状态码 成功：1，失败：-1
+     * 状态码
      */
     private int state;
 
@@ -40,61 +37,70 @@ public class JsonResult<T> implements Serializable {
      */
     private T data;
 
+    private JsonResult() {
+
+    }
+
     /**
      * 无参正常返回
      */
-    public JsonResult() {
-        this.state = SUCCESS_CODE;
-        this.message = MESSAGE;
-        this.data = null;
+    public static JsonResult successResult() {
+        JsonResult result = new JsonResult();
+        result.state = ResultCodeEnum.RESULT_SUCCESS_CODE.getCode();
+        result.message = SUCCESS_MESSAGE;
+        result.data = null;
+        return result;
     }
 
     /**
-     * 自定义返回
+     * 自定义正常返回
      *
-     * @param state   状态 （正常=> 1、 异常 =>-1 请正确填写）
      * @param message 信息
      */
-    public JsonResult(int state, String message) {
-        this.state = state;
-        this.message = message;
-        this.data = null;
+    public static JsonResult successResult(String message) {
+        JsonResult result = new JsonResult();
+        result.state = ResultCodeEnum.RESULT_SUCCESS_CODE.getCode();
+        result.message = message;
+        result.data = null;
+        return result;
     }
 
     /**
-     * 自定义返回
+     * 自定义正常返回
      *
-     * @param state   状态 （正常=> 1、 异常 =>-1 请正确填写）
      * @param message 信息
      * @param data    数据
      */
-    public JsonResult(int state, String message, T data) {
-        this.state = state;
-        this.message = message;
-        this.data = data;
-    }
-
-
-    /**
-     * 有参正常返回
-     *
-     * @param data 返回数据
-     */
-    public JsonResult(T data) {
-        this.state = SUCCESS_CODE;
-        this.message = MESSAGE;
-        this.data = data;
+    public static <T> JsonResult successResult(String message, T data) {
+        JsonResult result = new JsonResult();
+        result.state = ResultCodeEnum.RESULT_SUCCESS_CODE.getCode();
+        result.message = message;
+        result.data = data;
+        return result;
     }
 
     /**
-     * 异常返回
-     *
-     * @param e 异常
+     * 无参失败返回
      */
-    public JsonResult(Throwable e) {
-        this.state = ERROR_CODE;
-        this.message = e.getMessage();
-        this.data = null;
+    public static JsonResult failedResult() {
+        JsonResult result = new JsonResult();
+        result.state = ResultCodeEnum.RESULT_FAILED_CODE.getCode();
+        result.message = FAILED_MESSAGE;
+        result.data = null;
+        return result;
+    }
+
+    /**
+     * 自定义失败返回
+     *
+     * @param message 信息
+     */
+    public static JsonResult failedResult(String message) {
+        JsonResult result = new JsonResult();
+        result.state = ResultCodeEnum.RESULT_FAILED_CODE.getCode();
+        result.message = message;
+        result.data = null;
+        return result;
     }
 
     public int getState() {
