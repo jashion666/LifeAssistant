@@ -48,12 +48,10 @@ public class LoginController {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
 
-        LOG.debug("是否记住: " + "on".equals(user.getRememberMe()));
         token.setRememberMe("on".equals(user.getRememberMe()));
 
         try {
             subject.login(token);
-
         } catch (UnknownAccountException e) {
             return JsonResult.failedResult("该用户不存在。");
         } catch (LockedAccountException e) {
@@ -63,7 +61,6 @@ public class LoginController {
         } catch (ExcessiveAttemptsException e) {
             return JsonResult.failedResult("登陆次数超过五次，该账号已被锁定。请10分钟后再试。");
         }
-
 
         return JsonResult.successResult("登陆成功");
     }
@@ -79,6 +76,17 @@ public class LoginController {
         Session session = subject.getSession();
         UserEntity sessionUser = (UserEntity) session.getAttribute("shiroUser");
         return "home/welcome";
+    }
+
+    /**
+     * 用户登出
+     *
+     * @return 首页
+     */
+    @RequestMapping("/logout")
+    public String logout() {
+        SecurityUtils.getSubject().logout();
+        return "login";
     }
 
 }

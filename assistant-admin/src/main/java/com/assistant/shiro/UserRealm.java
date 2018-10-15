@@ -8,7 +8,6 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -18,11 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  *         时间：2018-08-14.
  */
 public class UserRealm extends AuthorizingRealm {
-
-    /**
-     * log
-     */
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(UserRealm.class);
 
     /**
      * 用户接口
@@ -74,5 +68,28 @@ public class UserRealm extends AuthorizingRealm {
         //用户名+密码+盐进行验证
         return new SimpleAuthenticationInfo(userInfo.getUsername(), userInfo.getPassword(), ByteSource.Util.bytes(userInfo.getCredentialsSalt()),
                 getName());
+    }
+
+    @Override
+    public void clearCachedAuthenticationInfo(PrincipalCollection principals) {
+        super.clearCachedAuthenticationInfo(principals);
+    }
+
+    @Override
+    public void clearCache(PrincipalCollection principals) {
+        super.clearCache(principals);
+    }
+
+    public void clearAllCachedAuthorizationInfo() {
+        getAuthorizationCache().clear();
+    }
+
+    public void clearAllCachedAuthenticationInfo() {
+        getAuthenticationCache().clear();
+    }
+
+    public void clearAllCache() {
+        clearAllCachedAuthenticationInfo();
+        clearAllCachedAuthorizationInfo();
     }
 }

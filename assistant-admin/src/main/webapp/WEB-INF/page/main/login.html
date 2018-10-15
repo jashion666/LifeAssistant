@@ -49,7 +49,10 @@
         <div class="layui-form-item">
             <label class="layui-form-label ">验证码</label>
             <div class="site-doc-icon site-doc-anim">
-                <div class="layui-anim" data-anim="layui-anim-scale">我是验证码</div>
+                <div class="layui-anim" data-anim="layui-anim-scale">
+                    <img src="/captcha/captchaImage" id="captchaImage">
+                     看不清，换一张
+                </div>
             </div>
         </div>
 
@@ -110,6 +113,11 @@
                 othis.addClass(anim);
             });
         });
+
+        $('#captchaImage').on('click', function () {
+            $("#captchaImage").attr("src", "/captcha/captchaImage");
+        });
+
     });
 </script>
 

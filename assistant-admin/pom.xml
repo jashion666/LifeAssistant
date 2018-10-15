@@ -27,6 +27,12 @@
             <artifactId>ehcache-core</artifactId>
             <version>2.4.8</version>
         </dependency>
+        <!--阿里验证码-->
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>2.3.2</version>
+        </dependency>
     </dependencies>
     <profiles>
         <!--开发环境-->
