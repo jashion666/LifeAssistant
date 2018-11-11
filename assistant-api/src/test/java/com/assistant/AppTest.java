@@ -52,5 +52,23 @@ public class AppTest {
 
 
     }
+//     private String nioRead(@NotNull String filename) throws Exception {
 
+//         FileInputStream fs = new FileInputStream(new File(filename));
+//         FileChannel fc = fs.getChannel();
+//         ByteBuffer bf = ByteBuffer.allocate(2048);
+//         int length;
+//         StringBuilder str = new StringBuilder();
+//         while ((length = fc.read(bf)) != -1) {
+//             byte[] bytes = bf.array();
+//             String tempStr = new String(bytes, 0, length);
+//             str.append(tempStr);
+//             bf.clear();
+//         }
+
+//         fs.close();
+//         fc.close();
+
+//         return str.toString();
+//     }
 }
