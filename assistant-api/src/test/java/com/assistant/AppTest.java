@@ -50,10 +50,10 @@ public class AppTest {
         System.out.println(RandomGeneratorUtil.toChineseUpper(num1) + CHINESE_PLUS_SIGN + RandomGeneratorUtil.toChineseUpper(num2)
                 + "=?");
 
-
     }
 //     private String nioRead(@NotNull String filename) throws Exception {
-
+//         s = s.replaceAll("\r\n", "\r\n|");
+//         String[] sArr = s.split("[\r\n|\r]",-1);
 //         FileInputStream fs = new FileInputStream(new File(filename));
 //         FileChannel fc = fs.getChannel();
 //         ByteBuffer bf = ByteBuffer.allocate(2048);
